@@ -1,10 +1,43 @@
 import streamlit as st
 import joblib
 import pandas as pd
+from xgboost import XGBRegressor
+# # Load model
+# model = joblib.load("C:\\Users\\STAR\\Downloads\\ipl-next-over-runs\\models\\next_over_runs_model.pkl")
+# features = joblib.load("C:\\Users\\STAR\\Downloads\\ipl-next-over-runs\\models\\features.pkl")
 
-# Load model
-model = joblib.load("C:\\Users\\STAR\\Downloads\\ipl-next-over-runs\\models\\next_over_runs_model.pkl")
-features = joblib.load("C:\\Users\\STAR\\Downloads\\ipl-next-over-runs\\models\\features.pkl")
+@st.cache_resource
+def load_model():
+    df = pd.read_csv("Data/processed/ipl_next_over_ml.csv")
+
+    FEATURES = [
+        "over",
+        "runs_in_over",
+        "runs_last_3_overs",
+        "wickets_last_3_overs",
+        "current_run_rate",
+        "wickets_remaining",
+        "over_phase"
+    ]
+
+    X = df[FEATURES]
+    y = df["runs_next_over"]
+
+    model = XGBRegressor(
+        n_estimators=300,
+        max_depth=5,
+        learning_rate=0.05,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        objective="reg:squarederror",
+        random_state=42
+    )
+
+    model.fit(X, y)
+    return model, FEATURES
+
+model, features = load_model()
+
 
 st.title("IPL Next Over Runs Predictor")
 
