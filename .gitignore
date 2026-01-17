@@ -1,0 +1,17 @@
+# Data
+Data/
+*.csv
+
+# Models
+models/
+*.pkl
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
