@@ -44,8 +44,14 @@ model, features = load_model()
 # =========================
 # STREAMLIT UI
 # =========================
+st.set_page_config(
+    page_title="IPL Next Over Runs Predictor",
+    page_icon="🏏",
+    layout="centered"
+)
+
 st.title("IPL Next Over Runs Predictor")
-st.write("Data-driven ML model for T20 next-over run prediction")
+st.write("Data-driven model for T20 next-over run prediction")
 
 # User Inputs
 over = st.slider("Current Over (0–19)", 0, 19, 6)
