@@ -6,9 +6,13 @@ from xgboost import XGBRegressor
 # model = joblib.load("C:\\Users\\STAR\\Downloads\\ipl-next-over-runs\\models\\next_over_runs_model.pkl")
 # features = joblib.load("C:\\Users\\STAR\\Downloads\\ipl-next-over-runs\\models\\features.pkl")
 
+import pandas as pd
+import streamlit as st
+from xgboost import XGBRegressor
+
 @st.cache_resource
 def load_model():
-    df = pd.read_csv("C:\\Users\\STAR\\Downloads\\ipl-next-over-runs\\Data\\processed\\ipl_next_over_ml.csv")
+    df = pd.read_csv("ipl_next_over_ml.csv")
 
     FEATURES = [
         "over",
@@ -35,8 +39,6 @@ def load_model():
 
     model.fit(X, y)
     return model, FEATURES
-
-model, features = load_model()
 
 
 st.title("IPL Next Over Runs Predictor")
