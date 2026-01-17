@@ -4,11 +4,17 @@ import pandas as pd
 from xgboost import XGBRegressor
 # # Load model
 # model = joblib.load("C:\\Users\\STAR\\Downloads\\ipl-next-over-runs\\models\\next_over_runs_model.pkl")
-# features = joblib.load("C:\\Users\\STAR\\Downloads\\ipl-next-over-runs\\models\\features.pkl")
+model, features = load_model()
+input_df = pd.DataFrame([[
+    over,
+    runs_in_over,
+    runs_last_3,
+    wickets_last_3,
+    current_rr,
+    wickets_remaining,
+    over_phase
+]], columns=features)
 
-import pandas as pd
-import streamlit as st
-from xgboost import XGBRegressor
 
 @st.cache_resource
 def load_model():
@@ -39,6 +45,7 @@ def load_model():
 
     model.fit(X, y)
     return model, FEATURES
+
 
 
 st.title("IPL Next Over Runs Predictor")
