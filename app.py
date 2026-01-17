@@ -8,7 +8,7 @@ from xgboost import XGBRegressor
 
 @st.cache_resource
 def load_model():
-    df = pd.read_csv("Data/processed/ipl_next_over_ml.csv")
+    df = pd.read_csv("C:\\Users\\STAR\\Downloads\\ipl-next-over-runs\\Data\\processed\\ipl_next_over_ml.csv")
 
     FEATURES = [
         "over",
