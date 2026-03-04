@@ -2,12 +2,19 @@ import streamlit as st
 import pandas as pd
 from xgboost import XGBRegressor
 
+#  MUST BE FIRST STREAMLIT COMMAND
+st.set_page_config(
+    page_title="IPL Next Over Runs Predictor",
+    page_icon="🏏",
+    layout="centered"
+)
+
 # =========================
 # LOAD + TRAIN MODEL (CACHED)
 # =========================
 @st.cache_resource
 def load_model():
-    df = pd.read_csv("Data/processed/ipl_next_over_ml.csv")  
+    df = pd.read_csv("Data/processed/ipl_next_over_ml.csv")
 
     FEATURES = [
         "over",
@@ -36,20 +43,12 @@ def load_model():
     return model, FEATURES
 
 
-# =========================
-# LOAD MODEL ONCE
-# =========================
+#  Load model AFTER page config
 model, features = load_model()
 
 # =========================
 # STREAMLIT UI
 # =========================
-st.set_page_config(
-    page_title="IPL Next Over Runs Predictor",
-    page_icon="🏏",
-    layout="centered"
-)
-
 st.title("IPL Next Over Runs Predictor")
 st.write("Data-driven model for T20 next-over run prediction")
 
@@ -65,7 +64,7 @@ over_phase = st.selectbox("Over Phase", [0, 1, 2])
 # =========================
 # CREATE INPUT DATAFRAME
 # =========================
-input_df = pd.DataFrame([[
+input_df = pd.DataFrame([[ 
     over,
     runs_in_over,
     runs_last_3,
